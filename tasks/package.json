@@ -1,0 +1,44 @@
+{
+  "name": "service-api-base",
+  "version": "1.0.0",
+  "description": "Serverless microservice API base",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "offline": "serverless offline",
+    "test": "jest ./tests/v1/unit",
+    "test:all": "jest",
+    "test:unit": "jest ./tests/v1/unit",
+    "test:integration": "jest ./tests/v1/integration",
+    "prettify": "pretty-quick ./"
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^1.1.3",
+    "execa": "^4.0.0",
+    "faker": "^4.1.0",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "prettier": "1.19.1",
+    "pretty-quick": "^2.0.1",
+    "serverless-offline": "^6.0.0",
+    "supertest": "^4.0.2"
+  },
+  "prettier": {
+    "printWidth": 150,
+    "semi": false,
+    "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "dependencies": {
+    "asana": "^0.18.4",
+    "aws-sdk": "^2.730.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.5.5",
+    "mongodb-uri": "^0.9.7"
+  }
+}

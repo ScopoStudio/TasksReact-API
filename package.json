@@ -1,0 +1,13 @@
+{
+  "name": "manager-services-tasks",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "",
+  "private": true,
+  "scripts": {
+    "start": "serverless-offline-multi --directory tasks --port 8000",
+    "start:all": "serverless-offline-multi --directory tasks --port 8000",
+    "start:authenticator": "serverless-offline-multi --directory tasks --port 8000",
+    "setup": "cd tasks && yarn && cp secrets.json.sample secrets.json"
+  }
+}

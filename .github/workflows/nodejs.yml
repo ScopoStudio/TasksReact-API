@@ -1,0 +1,111 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Authenticator service dependencies
+        run: |
+          cd authenticator
+          cp secrets.json.sample secrets.json
+          yarn
+      - name: Run Authenticator service unit tests
+        run: |
+          cd authenticator
+          yarn test:unit
+      - name: Install Expertises service dependencies
+        run: |
+          cd expertises
+          cp secrets.json.sample secrets.json
+          yarn
+      - name: Run Expertises service unit tests
+        run: |
+          cd expertises
+          yarn test:unit
+      - name: Install Packages service dependencies
+        run: |
+          cd packages
+          cp secrets.json.sample secrets.json
+          yarn
+      - name: Run Packages service unit tests
+        run: |
+          cd packages
+          yarn test:unit
+      - name: Install Lawyers service dependencies
+        run: |
+          cd lawyers
+          cp secrets.json.sample secrets.json
+          yarn
+      - name: Run Lawyers service unit tests
+        run: |
+          cd lawyers
+          yarn test:unit
+      - name: Install Services dependencies
+        run: |
+          cd services
+          cp secrets.json.sample secrets.json
+          yarn
+      - name: Run Services unit tests
+        run: |
+          cd services
+          yarn test:unit
+      - name: Install Services Types dependencies
+        run: |
+          cd services-types
+          cp secrets.json.sample secrets.json
+          yarn
+      - name: Run Services Types unit tests
+        run: |
+          cd services-types
+          yarn test:unit
+      - name: Install Subservices dependencies
+        run: |
+          cd subservices
+          cp secrets.json.sample secrets.json
+          yarn
+      - name: Run Subservices unit tests
+        run: |
+          cd subservices
+          yarn test:unit
+      - name: Install Subservices Questions dependencies
+        run: |
+          cd subservices-questions
+          cp secrets.json.sample secrets.json
+          yarn
+      - name: Run Subservices Questions unit tests
+        run: |
+          cd subservices-questions
+          yarn test:unit
+      - name: Install Clients dependencies
+        run: |
+          cd clients
+          cp secrets.json.sample secrets.json
+          yarn
+      - name: Run Clients unit tests
+        run: |
+          cd clients
+          yarn test:unit
+      - name: Install Demands dependencies
+        run: |
+          cd demands
+          cp secrets.json.sample secrets.json
+          yarn
+      - name: Run Demands unit tests
+        run: |
+          cd demands
+          yarn test:unit
