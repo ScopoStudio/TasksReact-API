@@ -1,4 +1,4 @@
-service: service-manager-realtor
+service: service-manager-task
 
 plugins:
   - serverless-offline
@@ -12,7 +12,7 @@ provider:
   memorySize: 256
   stage: ${self:custom.secrets.provider.STAGE}
   region: ${self:custom.secrets.provider.REGION}
-  apiName: service-manager-realtor
+  apiName: service-manager-task
   timeout: 10
   versionFunctions: false
   tracing:

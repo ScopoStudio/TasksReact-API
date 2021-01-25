@@ -180,39 +180,6 @@ class Base {
       return false
     }
   }
-
-  async sendEmail({ to, subject, body }) {
-    const { SES_AWS_REGION, SES_AWS_ACCESS_KEY, SES_AWS_SECRET_ACCESS_KEY } = process.env
-
-    const SESSettings = {
-      region: SES_AWS_REGION,
-      accessKeyId: SES_AWS_ACCESS_KEY,
-      secretAccessKey: SES_AWS_SECRET_ACCESS_KEY
-    }
-
-    const SES = new AWS.SES(SESSettings)
-
-    const mailParams = {
-      Source: 'no-reply@bonuz.it',
-      Destination: {
-        ToAddresses: [to]
-      },
-      Message: {
-        Body: {
-          Html: {
-            Charset: 'UTF-8',
-            Data: body
-          }
-        },
-        Subject: {
-          Charset: 'UTF-8',
-          Data: subject
-        }
-      }
-    }
-
-    return await SES.sendEmail(mailParams).promise()
-  }
 }
 
 module.exports = Base
