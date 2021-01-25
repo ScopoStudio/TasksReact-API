@@ -9,6 +9,7 @@ custom:
 provider:
   name: aws
   runtime: nodejs12.x
+  memorySize: 256
   stage: ${self:custom.secrets.provider.STAGE}
   region: ${self:custom.secrets.provider.REGION}
   apiName: service-manager-realtor
@@ -17,11 +18,6 @@ provider:
   tracing:
     apiGateway: true
     lambda: true
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - ses:SendEmail
-      Resource: "*"
   environment:
     MONGO_URL: ${self:custom.secrets.database.MONGO_URL}
     BCRYPT_ROUNDS: ${self:custom.secrets.authentication.BCRYPT_ROUNDS}
