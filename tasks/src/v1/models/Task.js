@@ -11,6 +11,10 @@ class Task extends Base {
     this.title = params.title || null
     this.subtitle = params.subtitle || null
     this.description = params.description || null
+    this.page = params.page || 0
+    this.offset = params.offset || 10
+    this.sort = params.sort || null
+    this.search = params.search || null
     this.paramsErrors = []
     this.collection = 'tasks'
     this.indexName = 'tasks_index'
@@ -25,13 +29,7 @@ class Task extends Base {
   }
 
   async isValid() {
-    const {
-      id,
-      title,
-      subtitle,
-      description,
-      paramsErrors
-    } = this
+    const { id, title, subtitle, description, paramsErrors } = this
 
     if (paramsErrors.length) return false
 
@@ -55,9 +53,7 @@ class Task extends Base {
   }
 
   async isValidToUpdate() {
-    const {
-      paramsErrors
-    } = this
+    const { paramsErrors } = this
 
     if (paramsErrors.length) {
       return false
@@ -67,14 +63,7 @@ class Task extends Base {
   }
 
   async save() {
-    const {
-      id,
-      title,
-      subtitle,
-      description,
-      createdAt,
-      updatedAt
-    } = this
+    const { id, title, subtitle, description, createdAt, updatedAt } = this
 
     const isValidToSave = await this.isValid()
 
