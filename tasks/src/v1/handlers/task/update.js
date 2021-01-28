@@ -1,28 +1,9 @@
 const { safeObjectId } = require('../../database')
 const { handleResponse, httpStatusCode } = require('../../helpers')
-const { Realtor } = require('../../models')
+const { Task } = require('../../models')
 
 const handle = async (event, context) => {
-  const {
-    firstName,
-    lastName,
-    email,
-    birthDate,
-    password,
-    passwordConfirmation,
-    mobileNumber,
-    telephoneNumber,
-    addressZipcode,
-    addressStreet,
-    addressNumber,
-    addressNeighborhood,
-    addressCity,
-    addressUF,
-    addressComplement,
-    document,
-    wallet,
-    realtorID
-  } = JSON.parse(event.body || {})
+  const { title, subtitle, description } = JSON.parse(event.body || {})
 
   const { id } = event.pathParameters || {}
   const convertedId = safeObjectId(id)
@@ -34,39 +15,24 @@ const handle = async (event, context) => {
     })
   }
 
-  const realtor = new Realtor({
+  const task = new Task({
     id: convertedId,
-    firstName,
-    lastName,
-    email,
-    birthDate,
-    password,
-    passwordConfirmation,
-    mobileNumber,
-    telephoneNumber,
-    addressZipcode,
-    addressStreet,
-    addressNumber,
-    addressNeighborhood,
-    addressCity,
-    addressUF,
-    addressComplement,
-    document,
-    wallet,
-    realtorID
+    title,
+    subtitle,
+    description
   })
-  const isValid = await realtor.isValid()
+  const isValid = await task.isValid()
 
   if (isValid) {
-    const realtorToReturn = await realtor.save()
+    const taskToReturn = await task.save()
 
-    if (realtorToReturn) {
-      return handleResponse({ body: realtorToReturn, statusCode: httpStatusCode.success.ok })
+    if (taskToReturn) {
+      return handleResponse({ body: taskToReturn, statusCode: httpStatusCode.success.ok })
     } else {
       return handleResponse({ body: { message: `Object with id ${id} not found in database.` }, statusCode: httpStatusCode.clientError.notFound })
     }
   } else {
-    const errors = realtor.errors()
+    const errors = task.errors()
     return handleResponse({ body: { message: errors }, statusCode: httpStatusCode.clientError.badRequest })
   }
 }
